@@ -32,7 +32,6 @@ class SimpleFrame extends JFrame{
         button = new JButton("RED");
         panel = new MyPanel();
         this.setSize(300, 200);
-        //this.setBackground(SystemColor.desktop);
         panel.add(button);
         add(panel);
         ColorAction redAction = new ColorAction(Color.RED);
@@ -43,14 +42,13 @@ class SimpleFrame extends JFrame{
         public ColorAction(Color c){
             background = c;
         }
-        
         public void actionPerformed(ActionEvent event)
         {
             panel.setBackground(background);
         }
+    
         private Color background;
     }
-    
     
     private MyPanel panel;
     private JButton button;
@@ -64,15 +62,9 @@ class MyPanel extends JPanel{
         JButton redButton = new JButton("RED");
         this.add(redButton);
     }
-    @Override
+    /*@Override
     public void paintComponent(Graphics g)
     {
-         try {
-                    Image img1 = ImageIO.read(new URL("http://i.hh.ru/css/ambient/blocks/head/logo.png"));
-                    g.drawImage(img1, 400, 200, null);
-                } catch (IOException ex) {
-                    g.drawString("url not found", 20, 20);
-                }
         g.drawString("Hello, World!", 75, 100);
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.red);
@@ -80,7 +72,6 @@ class MyPanel extends JPanel{
         g2.draw(rect);
         g2.setColor(Color.blue);
         g2.fill(rect);
-    }
-    
+    }*/
 }
 
