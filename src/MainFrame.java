@@ -29,39 +29,51 @@ public class MainFrame {
 class SimpleFrame extends JFrame{
     public SimpleFrame()
     {
-        button = new JButton("RED");
+        ColorAction redAction = new ColorAction("Red",Color.RED);
+        ColorAction blueAction = new ColorAction("Blue",Color.BLUE);
+        JButton button1 = new JButton(redAction);
+        JButton button2 = new JButton(blueAction);
         panel = new MyPanel();
-        this.setSize(300, 200);
-        panel.add(button);
+        panel.add(button1);
+        panel.add(button2);
         add(panel);
-        ColorAction redAction = new ColorAction(Color.RED);
-        button.addActionListener(redAction);
+        
+        
+        //Связывание клавиш с ключами действий
+        InputMap imap = panel.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        imap.put(KeyStroke.getKeyStroke("ctrl B"), "blue");
+        imap.put(KeyStroke.getKeyStroke("ctrl R"), "red");
+        
+        //Связывание ключей с действиями
+        ActionMap amap = panel.getActionMap();
+        amap.put("blue", blueAction);
+        amap.put("red", redAction);
     }
     
-    class ColorAction implements ActionListener{
-        public ColorAction(Color c){
-            background = c;
+    class ColorAction extends AbstractAction{
+        public ColorAction(String name, Color c){
+            this.putValue(NAME, name);
+            this.putValue("color", c);
+            this.putValue(Action.SHORT_DESCRIPTION, "Set panel color to " + name.toLowerCase());
+            
+
         }
         public void actionPerformed(ActionEvent event)
         {
-            panel.setBackground(background);
+            Color c = (Color) getValue("color");
+            panel.setBackground(c);
         }
     
-        private Color background;
     }
     
     private MyPanel panel;
-    private JButton button;
 }
 
 
 
 
 class MyPanel extends JPanel{
-    public MyPanel(){
-        JButton redButton = new JButton("RED");
-        this.add(redButton);
-    }
+    public MyPanel(){}
     /*@Override
     public void paintComponent(Graphics g)
     {
