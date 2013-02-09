@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 public class MainFrame {
@@ -29,61 +31,82 @@ public class MainFrame {
 class SimpleFrame extends JFrame{
     public SimpleFrame()
     {
-        ColorAction redAction = new ColorAction("Red",Color.RED);
-        ColorAction blueAction = new ColorAction("Blue",Color.BLUE);
-        JButton button1 = new JButton(redAction);
-        JButton button2 = new JButton(blueAction);
-        panel = new MyPanel();
-        panel.add(button1);
-        panel.add(button2);
+        panel = new FirstPanel();
         add(panel);
-        
-        
-        //Связывание клавиш с ключами действий
-        InputMap imap = panel.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        imap.put(KeyStroke.getKeyStroke("ctrl B"), "blue");
-        imap.put(KeyStroke.getKeyStroke("ctrl R"), "red");
-        
-        //Связывание ключей с действиями
-        ActionMap amap = panel.getActionMap();
-        amap.put("blue", blueAction);
-        amap.put("red", redAction);
+        pack();
     }
-    
-    class ColorAction extends AbstractAction{
-        public ColorAction(String name, Color c){
-            this.putValue(NAME, name);
-            this.putValue("color", c);
-            this.putValue(Action.SHORT_DESCRIPTION, "Set panel color to " + name.toLowerCase());
+    private FirstPanel panel;
+}
+
+class FirstPanel extends JPanel{
+        public FirstPanel(){
+            setLayout(new GridLayout(4,1));
             
+            JPanel panel1 = new JPanel();
+            JPanel panel2 = new JPanel();
+            JPanel panelMainLabel = new JPanel();
+            //panel1.setLayout(new GridLayout());
+            
+            sliderRows = new JSlider(0,99,0);
+            sliderRows.setMajorTickSpacing(20);
+            sliderRows.setMinorTickSpacing(1);
+            sliderRows.setSnapToTicks(true);
+            sliderRows.setPaintTicks(true);
+            sliderRows.addChangeListener(new ChangeListener(){
+                public void stateChanged(ChangeEvent event){
+                    Integer value = (Integer) sliderRows.getValue();
+                    countRows.setText(value.toString());
+                }
+            });
+            
+            sliderCols = new JSlider(0,99,0);
+            sliderCols.setMajorTickSpacing(20);
+            sliderCols.setMinorTickSpacing(1);
+            sliderCols.setSnapToTicks(true);
+            sliderCols.setPaintTicks(true);
+            sliderCols.addChangeListener(new ChangeListener(){
+                public void stateChanged(ChangeEvent event){
+                    Integer value = (Integer) sliderCols.getValue();
+                    countCols.setText(value.toString());
+                }
+            });
+            
+            JLabel mainLabel = new JLabel("Выберите количество строк и столбцов в матрице");
+            JLabel rowLabel = new JLabel("Количество строк");
+            JLabel colLabel = new JLabel("Количество столбцов");
+            countRows = new JLabel("0");
+            countCols = new JLabel("0");
+            
+            //panel1.add(mainLabel,BorderLayout.NORTH);
 
+            panel1.add(rowLabel,BorderLayout.NORTH);
+            panel1.add(sliderRows,BorderLayout.SOUTH);
+            panel1.add(countRows);
+            
+            panel2.add(colLabel,BorderLayout.NORTH);
+            panel2.add(sliderCols,BorderLayout.SOUTH);
+            panel2.add(countCols);
+            
+            panelMainLabel.add(mainLabel,BorderLayout.CENTER);
+            
+            add(panelMainLabel,BorderLayout.NORTH);
+            add(panel1,BorderLayout.CENTER);
+            add(panel2,BorderLayout.SOUTH);
+            
+            button = new JButton("Далее");
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(button);
+            
+            add(buttonPanel);
         }
-        public void actionPerformed(ActionEvent event)
-        {
-            Color c = (Color) getValue("color");
-            panel.setBackground(c);
-        }
-    
+        JSlider sliderRows;
+        JSlider sliderCols;
+        JLabel countRows;
+        JLabel countCols;
+        JButton button;
     }
-    
-    private MyPanel panel;
-}
 
 
 
 
-class MyPanel extends JPanel{
-    public MyPanel(){}
-    /*@Override
-    public void paintComponent(Graphics g)
-    {
-        g.drawString("Hello, World!", 75, 100);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.red);
-        Rectangle2D rect = new Rectangle2D.Double(100, 100, 200, 150);
-        g2.draw(rect);
-        g2.setColor(Color.blue);
-        g2.fill(rect);
-    }*/
-}
 
