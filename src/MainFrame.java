@@ -21,7 +21,7 @@ public class MainFrame {
                 frame.setSize(600, 500);
                 frame.setLocation(300, 100);
                 frame.setVisible(true);
-                frame.setResizable(false);
+                frame.setResizable(true);
             }
         });
     }
@@ -92,22 +92,22 @@ class FirstPanel extends JPanel{
             add(panel1,BorderLayout.CENTER);
             add(panel2,BorderLayout.SOUTH);
             
-            //добавляем кнопку далее
+            //добавляем кнопку Далее
             button = new JButton("Далее");
             ButtonListenerNext buttonlist1 = new ButtonListenerNext(this);
             button.addActionListener(buttonlist1);
             
             JPanel buttonPanel = new JPanel();
             buttonPanel.add(button);
-            
             add(buttonPanel);
+            
         }
         JSlider sliderRows;
         JSlider sliderCols;
         JLabel countRows;
         JLabel countCols;
         JButton button;
-    }
+}
 
 
 class ButtonListenerNext implements ActionListener{
@@ -118,9 +118,14 @@ class ButtonListenerNext implements ActionListener{
         //добавить "запомнить размерность"
         panel.removeAll();
         panel.updateUI();
+        SecondPanel spanel = new SecondPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(spanel);
     }
     JPanel panel;
 }
+
+
 
 
 
