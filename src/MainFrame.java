@@ -45,7 +45,6 @@ class FirstPanel extends JPanel{
             JPanel panel1 = new JPanel();
             JPanel panel2 = new JPanel();
             JPanel panelMainLabel = new JPanel();
-            //panel1.setLayout(new GridLayout());
             
             sliderRows = new JSlider(0,99,0);
             sliderRows.setMajorTickSpacing(20);
@@ -93,7 +92,11 @@ class FirstPanel extends JPanel{
             add(panel1,BorderLayout.CENTER);
             add(panel2,BorderLayout.SOUTH);
             
+            //добавляем кнопку далее
             button = new JButton("Далее");
+            ButtonListenerNext buttonlist1 = new ButtonListenerNext(this);
+            button.addActionListener(buttonlist1);
+            
             JPanel buttonPanel = new JPanel();
             buttonPanel.add(button);
             
@@ -107,6 +110,17 @@ class FirstPanel extends JPanel{
     }
 
 
+class ButtonListenerNext implements ActionListener{
+    public ButtonListenerNext(JPanel panel){
+        this.panel = panel;
+    }
+    public void actionPerformed(ActionEvent event){
+        //добавить "запомнить размерность"
+        panel.removeAll();
+        panel.updateUI();
+    }
+    JPanel panel;
+}
 
 
 
