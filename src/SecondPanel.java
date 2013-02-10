@@ -1,5 +1,6 @@
 
 import java.awt.FlowLayout;
+import javax.swing.JFrame;
 
 
 public class SecondPanel extends javax.swing.JPanel {
@@ -7,7 +8,10 @@ public class SecondPanel extends javax.swing.JPanel {
     /**
      * Creates new form SecondPanel
      */
-    public SecondPanel() {
+    public SecondPanel(JFrame frame, int countVert,int countKrit) {
+        this.countVert = countVert;
+        this.countKrit = countKrit;
+        this.frame = frame;
         initComponents();
         buttonGroup1.add(radioButton1);
         buttonGroup1.add(radioButton2);
@@ -96,7 +100,7 @@ public class SecondPanel extends javax.swing.JPanel {
         {
             this.removeAll();
             this.updateUI();
-            MatrixPanel mpanel = new MatrixPanel();
+            MatrixPanel mpanel = new MatrixPanel(frame, countVert, countKrit);
             this.setLayout(new FlowLayout());
             this.add(mpanel);
         }
@@ -110,5 +114,7 @@ public class SecondPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton radioButton1;
     private javax.swing.JRadioButton radioButton2;
     // End of variables declaration//GEN-END:variables
-
+    private int countVert;
+    private int countKrit;
+    private JFrame frame;
 }

@@ -31,7 +31,7 @@ public class MainFrame {
 class SimpleFrame extends JFrame{
     public SimpleFrame()
     {
-        panel = new FirstPanel();
+        panel = new FirstPanel(this);
         add(panel);
         pack();
     }
@@ -39,7 +39,8 @@ class SimpleFrame extends JFrame{
 }
 
 class FirstPanel extends JPanel{
-        public FirstPanel(){
+        public FirstPanel(JFrame frame){
+            this.frame = frame;
             setLayout(new GridLayout(4,1));
             
             JPanel panel1 = new JPanel();
@@ -58,7 +59,7 @@ class FirstPanel extends JPanel{
                 }
             });
             
-            sliderCols = new JSlider(0,99,0);
+            sliderCols = new JSlider(0,5,0);
             sliderCols.setMajorTickSpacing(20);
             sliderCols.setMinorTickSpacing(1);
             sliderCols.setSnapToTicks(true);
@@ -70,9 +71,9 @@ class FirstPanel extends JPanel{
                 }
             });
             
-            JLabel mainLabel = new JLabel("Выберите количество строк и столбцов в матрице");
-            JLabel rowLabel = new JLabel("Количество строк");
-            JLabel colLabel = new JLabel("Количество столбцов");
+            JLabel mainLabel = new JLabel("Задайте параметры");
+            JLabel rowLabel = new JLabel("Количество вершин в графе");
+            JLabel colLabel = new JLabel("Количество критериев у каждой вершины");
             countRows = new JLabel("0");
             countCols = new JLabel("0");
             
@@ -94,7 +95,7 @@ class FirstPanel extends JPanel{
             
             //добавляем кнопку Далее
             button = new JButton("Далее");
-            ButtonListenerNext buttonlist1 = new ButtonListenerNext(this);
+            ButtonListenerNext buttonlist1 = new ButtonListenerNext(this,frame,sliderRows,sliderCols);
             button.addActionListener(buttonlist1);
             
             JPanel buttonPanel = new JPanel();
@@ -107,22 +108,34 @@ class FirstPanel extends JPanel{
         JLabel countRows;
         JLabel countCols;
         JButton button;
+        JFrame frame;
+        
 }
 
 
 class ButtonListenerNext implements ActionListener{
-    public ButtonListenerNext(JPanel panel){
+    public ButtonListenerNext(JPanel panel, JFrame frame,JSlider sliderRows,JSlider sliderCols){
         this.panel = panel;
+        this.frame = frame;
+        this.sliderVert = sliderRows;
+        this.sliderKrit = sliderCols;
     }
     public void actionPerformed(ActionEvent event){
         //добавить "запомнить размерность"
+        countVert = sliderVert.getValue();
+        countKrit = sliderKrit.getValue();
         panel.removeAll();
         panel.updateUI();
-        SecondPanel spanel = new SecondPanel();
+        SecondPanel spanel = new SecondPanel(frame,countVert,countKrit);
         panel.setLayout(new FlowLayout());
         panel.add(spanel);
     }
-    JPanel panel;
+    private JFrame frame;
+    private JPanel panel;
+    private JSlider sliderVert;
+    private JSlider sliderKrit;
+    private int countVert;
+    private int countKrit;
 }
 
 
