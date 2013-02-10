@@ -8,9 +8,8 @@ public class SecondPanel extends javax.swing.JPanel {
     /**
      * Creates new form SecondPanel
      */
-    public SecondPanel(JFrame frame, int countVert,int countKrit) {
-        this.countVert = countVert;
-        this.countKrit = countKrit;
+    public SecondPanel(JFrame frame) {
+        
         this.frame = frame;
         initComponents();
         buttonGroup1.add(radioButton1);
@@ -98,13 +97,13 @@ public class SecondPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (radioButton2.isSelected())
         {
+            SecondSecondPanel sspanel = new SecondSecondPanel(frame);
             this.removeAll();
             this.updateUI();
-            MatrixPanel mpanel = new MatrixPanel(frame, countVert, countKrit);
-            this.setLayout(new FlowLayout());
-            this.add(mpanel);
+            //this.setLayout(new FlowLayout());
+            frame.remove(this);
+            frame.add(sspanel);
         }
-        
     }//GEN-LAST:event_nextButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -114,7 +113,5 @@ public class SecondPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton radioButton1;
     private javax.swing.JRadioButton radioButton2;
     // End of variables declaration//GEN-END:variables
-    private int countVert;
-    private int countKrit;
     private JFrame frame;
 }
