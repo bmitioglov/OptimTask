@@ -40,7 +40,7 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//jScrollPane1 = new JScrollPane(jTable1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);&#xa;jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(i,i)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(count,count+1)"/>
           </AuxValues>
         </Component>
       </SubComponents>

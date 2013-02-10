@@ -3,7 +3,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -18,21 +21,32 @@ public class MatrixPanel extends javax.swing.JPanel {
 
     public MatrixPanel() {
         initComponents();
-        jScrollPane1.setRowHeader(null);
-        // rowHeader is the table which will have your row header details
-        JTable rowHeader = new JTable(new RowModel(jTable1.getModel()));
-        TableCellRenderer renderer = new RowHeaderRenderer();
-
-        Component comp =
-        renderer.getTableCellRendererComponent(rowHeader, null, false, false,
-        rowHeader.getRowCount() - 1, 0);
-
-        rowHeader.setIntercellSpacing(new Dimension(0, 0));
-        rowHeader.setPreferredScrollableViewportSize(d);
-        rowHeader.setRowHeight(jTable1.getRowHeight());
-        rowHeader.setDefaultRenderer(Object.class, renderer);
-
-        jScrollPane1.setRowHeaderView(rowHeader);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue((""));
+        TableColumn column = jTable1.getColumnModel().getColumn(0);
+        column.setPreferredWidth(20);
+        TableModel model = jTable1.getModel();
+        
+        //Заполнение названий столбцов
+        for (int j = 1; j<=count; j++){
+            jTable1.getColumnModel().getColumn(j).setHeaderValue((j));
+            column = jTable1.getColumnModel().getColumn(j);
+            column.setPreferredWidth(20);
+        }
+        //Заполнение матрицы
+        for (int i = 0; i<count; i++)
+        {
+            for (int j = 1; j<=count; j++)
+            {
+                model.setValueAt(0, i, j);
+            }
+        }
+        //Заполнение названий строк
+        for (int i = 0; i<count; i++){
+            model.setValueAt(i+1, i, 0);
+            model.isCellEditable(i, 0);
+        }
+        
+        jTable1.getTableHeader().resizeAndRepaint();
     }
 
     /**
@@ -45,7 +59,7 @@ public class MatrixPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable(i,i);
+        jTable1 = new javax.swing.JTable(count,count+1);
 
         jScrollPane1.setViewportView(jTable1);
         //jScrollPane1 = new JScrollPane(jTable1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -69,5 +83,6 @@ public class MatrixPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-    private int i = 50;
+    private int count = 50;
 }
+
