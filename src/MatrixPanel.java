@@ -113,9 +113,9 @@ public class MatrixPanel extends javax.swing.JPanel {
         this.updateUI();
         //this.updateUI();
         frame.remove(this);
+        frame.add(kpanel);   
         revalidate();
         repaint();
-        frame.add(kpanel);   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

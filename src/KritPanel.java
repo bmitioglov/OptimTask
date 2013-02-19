@@ -13,9 +13,9 @@ public class KritPanel extends javax.swing.JPanel {
      */
     public KritPanel(JFrame frame, int countVert, int countKrit) {
         
-        //this.countVert = countVert;
-        //this.countKrit = countKrit;
-        //this.frame = frame;
+        this.countVert = countVert;
+        this.countKrit = countKrit;
+        this.frame = frame;
         /*this.setVisible(true);
         frame.setVisible(true);
         frame.setSize(600, 500);
@@ -24,7 +24,7 @@ public class KritPanel extends javax.swing.JPanel {
         
         initComponents();
         this.setVisible(true);
-        /*jTable1.getColumnModel().getColumn(0).setHeaderValue((""));
+        jTable1.getColumnModel().getColumn(0).setHeaderValue((""));
         TableColumn column = jTable1.getColumnModel().getColumn(0);
         column.setPreferredWidth(20);
         TableModel model = jTable1.getModel();
@@ -42,7 +42,7 @@ public class KritPanel extends javax.swing.JPanel {
         }
         frame.setSize(600, 500);
         frame.setResizable(false);
-        jTable1.getTableHeader().resizeAndRepaint();*/
+        jTable1.getTableHeader().resizeAndRepaint();
         
         
     }
@@ -56,42 +56,73 @@ public class KritPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable(countVert,countKrit+1);
+        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        jLabel1.setText("jLabel1");
+        jScrollPane1.setViewportView(jTable1);
+        //jScrollPane1 = new JScrollPane(jTable1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        jButton1.setText("jButton1");
+        jLabel2.setText("Введите критерии для каждой вершины");
+
+        jButton1.setText("Далее");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(324, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(111, 111, 111))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(142, 142, 142))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(jButton1)))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(51, 51, 51))
+                .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ResultPanel rpanel = new ResultPanel(frame, countVert, countKrit);
+        //SecondSecondPanel sspanel = new SecondSecondPanel(frame);
+        this.removeAll();
+        this.updateUI();
+        //this.updateUI();
+        frame.remove(this);
+        frame.add(rpanel);   
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-    //private int countVert;
-    //private int countKrit;
+    private int countVert;
+    private int countKrit;
     private JFrame frame;
 }

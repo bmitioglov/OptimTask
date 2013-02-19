@@ -114,7 +114,8 @@ class ButtonListenerNext implements ActionListener{
         panel.removeAll();
         panel.updateUI();
         panel.setLayout(new FlowLayout());
-        panel.add(mpanel);
+        frame.remove(panel);
+        frame.add(mpanel);
     }
     private JFrame frame;
     private JPanel panel;
